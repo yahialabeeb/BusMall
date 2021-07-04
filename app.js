@@ -4,7 +4,7 @@ let attempts = 25
 const leftImageElement = document.getElementById('left-image');
 const rightImageElement = document.getElementById('right-image');
 const midImageElement = document.getElementById('mid-image');
-
+const btn = document.getElementById('btn');
 function Goods(name, imgurl) {
     this.name = name;
     this.imgurl = imgurl;
@@ -41,7 +41,7 @@ function generateRandomIndex() {
 leftImageElement.addEventListener('click', handleClick);
 midImageElement.addEventListener('click', handleClick);
 rightImageElement.addEventListener('click', handleClick);
-
+btn.addEventListener('click', renderList);
 
 let leftIndex;
 let rightIndex;
@@ -65,9 +65,9 @@ function renderThreeImages() {
     midImageElement.src = Goods.mainArr[midIndex].imgurl;
     Goods.mainArr[midIndex].shown++
 
-//     console.log(rightImageElement)
+    //     console.log(rightImageElement)
 
-//     console.log(Goods.mainArr[2].shown);
+    //     console.log(Goods.mainArr[2].shown);
 }
 
 
@@ -86,13 +86,10 @@ function handleClick(event) {
             Goods.mainArr[leftIndex].clicks++;
         } else if (event.target.id === 'right-image') {
             Goods.mainArr[rightIndex].clicks++;
-        } else if (event.target.id === 'mid-image'){
-        Goods.mainArr[rightIndex].clicks++;
-    }
-            renderThreeImages();
-    } else {
-        <button type="button">Click Me!</button>
-        renderList();
+        } else if (event.target.id === 'mid-image') {
+            Goods.mainArr[rightIndex].clicks++;
+        }
+        renderThreeImages();
     }
 }
 
