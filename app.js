@@ -38,6 +38,10 @@ console.log(Goods.mainArr);
 function generateRandomIndex() {
     return Math.floor(Math.random() * Goods.mainArr.length);
 }
+leftImageElement.addEventListener('click', handleClick);
+midImageElement.addEventListener('click', handleClick);
+rightImageElement.addEventListener('click', handleClick);
+
 
 let leftIndex;
 let rightIndex;
@@ -60,14 +64,14 @@ function renderThreeImages() {
     Goods.mainArr[rightIndex].shown++
     midImageElement.src = Goods.mainArr[midIndex].imgurl;
     Goods.mainArr[midIndex].shown++
-    
-    console.log(rightImageElement)
 
-console.log(Goods.mainArr[2].shown);
+//     console.log(rightImageElement)
+
+//     console.log(Goods.mainArr[2].shown);
 }
 
 
-    
+
 
 renderThreeImages();
 
@@ -79,17 +83,30 @@ function handleClick(event) {
 
     if (attempts >= counter) {
         if (event.target.id === 'left-image') {
-            Goods.mainArr[leftIndex].votes++;
+            Goods.mainArr[leftIndex].clicks++;
         } else if (event.target.id === 'right-image') {
-            Goods.mainArr[rightIndex].votes++;
-        }
-        renderThreeImages();
-        // } else {
-        //     renderList();
+            Goods.mainArr[rightIndex].clicks++;
+        } else if (event.target.id === 'mid-image'){
+        Goods.mainArr[rightIndex].clicks++;
+    }
+            renderThreeImages();
+    } else {
+        <button type="button">Click Me!</button>
+        renderList();
     }
 }
 
 
-leftImageElement.addEventListener('click', handleClick);
-midImageElement.addEventListener('click', handleClick);
-rightImageElement.addEventListener('click', handleClick);
+
+function renderList() {
+    console.log(counter);
+    const ul = document.getElementById('list');
+    for (let i = 0; i < Goods.mainArr.length; i++) {
+        let li = document.createElement('li');
+        ul.appendChild(li);
+        li.textContent = `${Goods.mainArr[i].name} has this number of votes ${Goods.mainArr[i].clicks} and shown ${Goods.mainArr[i].shown} `
+    }
+    leftImageElement.removeEventListener('click', handleClick);
+    rightImageElement.removeEventListener('click', handleClick);
+    midImageElement.removeEventListener('click', handleClick);
+}
