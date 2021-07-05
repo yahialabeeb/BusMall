@@ -3,7 +3,7 @@ Goods.mainArr = [];
 Goods.names = []
 
 let counter = 0;
-let attempts = 5
+let attempts = 25;
 
 const leftImageElement = document.getElementById('left-image');
 const rightImageElement = document.getElementById('right-image');
