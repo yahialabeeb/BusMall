@@ -9,7 +9,6 @@ const leftImageElement = document.getElementById('left-image');
 const rightImageElement = document.getElementById('right-image');
 const midImageElement = document.getElementById('mid-image');
 
-
 function Goods(name, imgurl) {
     this.name = name;
     this.imgurl = imgurl;
@@ -48,7 +47,6 @@ leftImageElement.addEventListener('click', handleClick);
 midImageElement.addEventListener('click', handleClick);
 rightImageElement.addEventListener('click', handleClick);
 
-
 let leftIndex;
 let midIndex;
 let rightIndex;
@@ -82,11 +80,7 @@ function renderThreeImages() {
     //     console.log(Goods.mainArr[2].shown);
 }
 
-
-
-
 renderThreeImages();
-
 
 function handleClick(event) {
     console.log(event);
@@ -111,27 +105,21 @@ function handleClick(event) {
         leftImageElement.removeEventListener('click', handleClick);
         rightImageElement.removeEventListener('click', handleClick);
         midImageElement.removeEventListener('click', handleClick);
-       
     }
 }
 
-
-
-
-
 let numOfClicks = []
 let numOfshown = []
-
-
-
-console.log(numOfClicks);
-
+// console.log(numOfClicks);
 
 function getAChart() {
     for (let i = 0; i < Goods.mainArr.length; i++) {
         numOfClicks.push(Goods.mainArr[i].clicks)
         numOfshown.push(Goods.mainArr[i].shown)
     }
+    // saving the main array
+    let saved = JSON.stringify(Goods.mainArr);
+    localStorage.setItem('main', saved);
 
     let ctx = document.getElementById('myChart').getContext('2d');
     let myChart = new Chart(ctx, {
@@ -156,7 +144,6 @@ function getAChart() {
                     'rgba(75, 192, 192, 0.2)',
                 ],
                 borderColor: [
-
                     'rgba(153, 102, 255, 1)',
                 ],
                 borderWidth: 1
@@ -172,6 +159,20 @@ function getAChart() {
     });
 }
 
+function pre() {
+    let savedData = JSON.parse(localStorage.getItem('main'))
+    const preClicksPlace = document.getElementById('pre');
+     
+    for (let i = 0; i < savedData.length; i++) {
+        const preList = document.createElement('li');
+        preClicksPlace.appendChild(preList);
+        preList.textContent = `${savedData[i].name} has this number of votes ${savedData[i].clicks} and shown ${savedData[i].shown} `
+    }
+    btn.removeEventListener('click', pre);
+    // console.log(savedData);
+    // console.log(savedData[5].clicks);
+
+}
 function btnApp() {
     const btnplace = document.getElementById('two');
 
@@ -190,6 +191,25 @@ function btnApp() {
     btn.addEventListener('click', getAChart);
     console.log(btnplace);
 }
+function prebtnApp() {
+    const btnplace = document.getElementById('two');
+
+    const btn = document.createElement('button');
+    btnplace.appendChild(btn);
+    btn.textContent = 'Show previous Result'
+
+    const btntype = document.createAttribute('type');
+    btntype.value = "button";
+    btn.setAttributeNode(btntype);
+
+    const btnId = document.createAttribute('id');
+    btnId.value = "btn";
+    btn.setAttributeNode(btnId);
+
+    btn.addEventListener('click', pre);
+    console.log(btnplace);
+}
+prebtnApp();
 
 
 // function renderList() {
@@ -198,7 +218,7 @@ function btnApp() {
 //     for (let i = 0; i < Goods.mainArr.length; i++) {
 //         let li = document.createElement('li');
 //         ul.appendChild(li);
-//         li.textContent = `${Goods.mainArr[i].name} has this number of votes ${Goods.mainArr[i].clicks} and shown ${Goods.mainArr[i].shown} `
+//          li.textContent = `${Goods.mainArr[i].name} has this number of votes ${Goods.mainArr[i].clicks} and shown ${Goods.mainArr[i].shown} `
 //     }
 //     leftImageElement.removeEventListener('click', handleClick);
 //     rightImageElement.removeEventListener('click', handleClick);
