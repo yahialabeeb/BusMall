@@ -13,7 +13,7 @@ padding: 1rem;
 }
 body{
     background-image: linear-gradient(to left, #082d88,#00d4ff);
-    background-size:auto;
+    background-size:cover;
 }
 #two button{
     padding: 0.5rem;
