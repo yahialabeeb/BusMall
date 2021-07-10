@@ -105,6 +105,9 @@ function handleClick(event) {
         leftImageElement.removeEventListener('click', handleClick);
         rightImageElement.removeEventListener('click', handleClick);
         midImageElement.removeEventListener('click', handleClick);
+        // saving the main array
+        let saved = JSON.stringify(Goods.mainArr);
+        localStorage.setItem('main', saved);
     }
 }
 
@@ -117,9 +120,7 @@ function getAChart() {
         numOfClicks.push(Goods.mainArr[i].clicks)
         numOfshown.push(Goods.mainArr[i].shown)
     }
-    // saving the main array
-    let saved = JSON.stringify(Goods.mainArr);
-    localStorage.setItem('main', saved);
+
 
     let ctx = document.getElementById('myChart').getContext('2d');
     let myChart = new Chart(ctx, {
@@ -162,17 +163,19 @@ function getAChart() {
 function pre() {
     let savedData = JSON.parse(localStorage.getItem('main'))
     const preClicksPlace = document.getElementById('pre');
-     
+
     for (let i = 0; i < savedData.length; i++) {
         const preList = document.createElement('li');
         preClicksPlace.appendChild(preList);
         preList.textContent = `${savedData[i].name} has this number of votes ${savedData[i].clicks} and shown ${savedData[i].shown} `
     }
-    btn.removeEventListener('click', pre);
-    // console.log(savedData);
-    // console.log(savedData[5].clicks);
 
+    btnpre.removeEventListener('click', pre);
+    //     // console.log(savedData);
+    //console.log(savedData[5].clicks);
 }
+
+
 function btnApp() {
     const btnplace = document.getElementById('two');
 
@@ -191,22 +194,23 @@ function btnApp() {
     btn.addEventListener('click', getAChart);
     console.log(btnplace);
 }
+let btnpre;
 function prebtnApp() {
     const btnplace = document.getElementById('two');
 
-    const btn = document.createElement('button');
-    btnplace.appendChild(btn);
-    btn.textContent = 'Show previous Result'
+    btnpre = document.createElement('button');
+    btnplace.appendChild(btnpre);
+    btnpre.textContent = 'Show previous Result'
 
     const btntype = document.createAttribute('type');
     btntype.value = "button";
-    btn.setAttributeNode(btntype);
+    btnpre.setAttributeNode(btntype);
 
     const btnId = document.createAttribute('id');
     btnId.value = "btn";
-    btn.setAttributeNode(btnId);
+    btnpre.setAttributeNode(btnId);
 
-    btn.addEventListener('click', pre);
+    btnpre.addEventListener('click', pre);
     console.log(btnplace);
 }
 prebtnApp();
