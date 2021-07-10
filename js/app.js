@@ -17,7 +17,7 @@ function Goods(name, imgurl) {
     Goods.mainArr.push(this);
     Goods.names.push(this.name)
 }
-
+// adding images objects 
 new Goods('banana', 'imges/banana.jpg')
 new Goods('bag', 'imges/bag.jpg')
 new Goods('bathroom', 'imges/bathroom.jpg')
@@ -43,10 +43,15 @@ console.log(Goods.mainArr);
 function generateRandomIndex() {
     return Math.floor(Math.random() * Goods.mainArr.length);
 }
+
+// add event for image clicking
+
 leftImageElement.addEventListener('click', handleClick);
 midImageElement.addEventListener('click', handleClick);
 rightImageElement.addEventListener('click', handleClick);
 
+
+// rendering three images
 let leftIndex;
 let midIndex;
 let rightIndex;
@@ -54,6 +59,7 @@ let checkPastimg = [-1, -1, -1];
 let presentimg = [leftIndex, midIndex, rightIndex];
 function renderThreeImages() {
 
+    // check images
     do {
         leftIndex = generateRandomIndex();
         midIndex = generateRandomIndex();
@@ -64,9 +70,11 @@ function renderThreeImages() {
             midIndex = generateRandomIndex();
         }
     }
+
     while (checkPastimg.includes(leftIndex) || checkPastimg.includes(midIndex) || checkPastimg.includes(rightIndex));
 
     checkPastimg = [leftIndex, midIndex, rightIndex];
+
 
     leftImageElement.src = Goods.mainArr[leftIndex].imgurl;
     Goods.mainArr[leftIndex].shown++
@@ -82,6 +90,8 @@ function renderThreeImages() {
 
 renderThreeImages();
 
+
+// function of show result event 
 function handleClick(event) {
     console.log(event);
     console.log(event.target.id);
@@ -114,7 +124,7 @@ function handleClick(event) {
 let numOfClicks = []
 let numOfshown = []
 // console.log(numOfClicks);
-
+// adding chart for result
 function getAChart() {
     for (let i = 0; i < Goods.mainArr.length; i++) {
         numOfClicks.push(Goods.mainArr[i].clicks)
@@ -127,39 +137,51 @@ function getAChart() {
         type: 'bar',
         data: {
             labels: Goods.names,
+            color: [
+                'black'
+            ],
             datasets: [{
                 label: '# of Votes',
+
                 data: numOfClicks,
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
+                    '#000EA8',
                 ],
                 borderColor: [
 
-                    'rgba(255, 159, 64, 1)',
+                    'black',
                 ],
                 borderWidth: 1
             }, {
                 label: '# of Shown',
                 data: numOfshown,
                 backgroundColor: [
-                    'rgba(75, 192, 192, 0.2)',
+                    '#5F00DB',
                 ],
                 borderColor: [
-                    'rgba(153, 102, 255, 1)',
+                    'black',
                 ],
                 borderWidth: 1
             }]
         },
-        options: {
+        options:
+        {
+
             scales: {
                 y: {
                     beginAtZero: true
                 }
+            },
+            labels: {
+                font: {
+                    size: 14
+                },
+
             }
         }
     });
 }
-
+// add pre result function  
 function pre() {
     let savedData = JSON.parse(localStorage.getItem('main'))
     const preClicksPlace = document.getElementById('pre');
@@ -170,12 +192,13 @@ function pre() {
         preList.textContent = `${savedData[i].name} has this number of votes ${savedData[i].clicks} and shown ${savedData[i].shown} `
     }
 
+
     btnpre.removeEventListener('click', pre);
     //     // console.log(savedData);
     //console.log(savedData[5].clicks);
 }
 
-
+// adding show result button and its event 
 function btnApp() {
     const btnplace = document.getElementById('two');
 
@@ -194,6 +217,8 @@ function btnApp() {
     btn.addEventListener('click', getAChart);
     console.log(btnplace);
 }
+
+// add button (previous result) in html and add event to it 
 let btnpre;
 function prebtnApp() {
     const btnplace = document.getElementById('two');
@@ -212,6 +237,9 @@ function prebtnApp() {
 
     btnpre.addEventListener('click', pre);
     console.log(btnplace);
+
+    const br = document.createElement('br');
+    btnplace.appendChild(br);
 }
 prebtnApp();
 

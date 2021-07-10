@@ -1,7 +1,36 @@
 *{
     box-sizing: border-box;
+   
+}
+h1 {
+    text-align: center;
+    padding: 1rem;
+    color: black;
+    font-size: xx-large;
+}
+h2{
+padding: 1rem;
+}
+body{
+    background-image: linear-gradient(to left, #082d88,#00d4ff);
+    background-size:auto;
+}
+#two button{
+    padding: 0.5rem;
+    margin: 1rem;
 }
 img {
     width: 250px;
     height: 250px;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+}
+ul li {
+    color: aliceblue;
+    padding: 2.5px;
+}
+#pre {
+    float: right;
+    margin-right: 8rem;
+    
 }
