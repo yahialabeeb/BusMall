@@ -41,7 +41,7 @@ function generateRandomIndex() {
 leftImageElement.addEventListener('click', handleClick);
 midImageElement.addEventListener('click', handleClick);
 rightImageElement.addEventListener('click', handleClick);
-btn.addEventListener('click', renderList);
+
 
 let leftIndex;
 let rightIndex;
@@ -91,7 +91,14 @@ function handleClick(event) {
         }
         renderThreeImages();
     }
+    else {
+        btn.addEventListener('click', renderList);
+        leftImageElement.removeEventListener('click', handleClick);
+        rightImageElement.removeEventListener('click', handleClick);
+        midImageElement.removeEventListener('click', handleClick);
+    }
 }
+
 
 
 
@@ -103,7 +110,5 @@ function renderList() {
         ul.appendChild(li);
         li.textContent = `${Goods.mainArr[i].name} has this number of votes ${Goods.mainArr[i].clicks} and shown ${Goods.mainArr[i].shown} `
     }
-    leftImageElement.removeEventListener('click', handleClick);
-    rightImageElement.removeEventListener('click', handleClick);
-    midImageElement.removeEventListener('click', handleClick);
+    btn.removeEventListener('click', renderList);
 }
